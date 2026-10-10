@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#315b4b"><meta name="description" content="Nihongo Practice cikcik — JLPT-style Moji Goi and Dokkai practice">
+<title>Nihongo Practice cikcik</title>
+<style>
+:root{--green:#315b4b;--green2:#e7f2eb;--ink:#1e2b25;--muted:#65736b;--line:#dce5df;--paper:#fbfdfb;--gold:#e6b85c}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#edf5ef 0,#fbfdfb 260px);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}.wrap{width:min(780px,100%);margin:auto;padding:18px 15px 45px}.hero{background:var(--green);color:white;border-radius:24px;padding:24px 22px;margin:6px 0 17px;box-shadow:0 10px 26px #315b4b20}.kicker{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;opacity:.8}.hero h1{margin:4px 0;font-size:clamp(1.6rem,5vw,2.25rem);line-height:1.2}.hero p{margin:9px 0 0;color:#e5eee8}.pill{display:inline-block;border:1px solid #ffffff50;border-radius:999px;padding:4px 10px;font-size:.8rem;margin-top:13px}.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:18px;margin:13px 0;box-shadow:0 4px 16px #223b2d08}.section-title{font-size:1.15rem;font-weight:750;margin:0 0 8px}.muted{color:var(--muted);font-size:.93rem}.row{display:flex;gap:10px;flex-wrap:wrap}.choice{flex:1;min-width:125px;text-align:left;border:1px solid var(--line);background:white;border-radius:14px;padding:13px;cursor:pointer;color:var(--ink)}.choice strong{display:block;font-size:1rem}.choice span{font-size:.83rem;color:var(--muted)}.choice.active{border:2px solid var(--green);background:var(--green2);padding:12px}.field{display:block;font-weight:650;margin:15px 0 6px}select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;font:inherit;color:var(--ink)}button{font:inherit;cursor:pointer}.primary{width:100%;border:0;border-radius:14px;background:var(--green);color:white;font-weight:750;padding:14px 18px;margin-top:15px}.primary:disabled{opacity:.45;cursor:not-allowed}.secondary{border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);padding:10px 14px}.hidden{display:none!important}.topline{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--muted);font-size:.88rem}.bar{height:7px;background:#e8eee9;border-radius:99px;overflow:hidden;margin:10px 0 20px}.bar div{height:100%;width:0;background:var(--green);transition:width .2s}.passage{background:#f3f7f4;border-left:4px solid var(--green);padding:14px;border-radius:10px;font-size:1.02rem;margin:14px 0}.question{font-size:1.18rem;font-weight:750;margin:15px 0}.options{display:grid;gap:9px}.option{display:flex;gap:11px;align-items:center;text-align:left;width:100%;border:1px solid var(--line);border-radius:13px;padding:12px;background:white;color:var(--ink)}.letter{width:30px;height:30px;flex:0 0 30px;border-radius:9px;background:#f0f4f1;display:grid;place-items:center;font-weight:750}.option.correct{border-color:#31845b;background:#eaf7ee}.option.wrong{border-color:#c95353;background:#fff0ef}.feedback{padding:13px;border-radius:12px;margin-top:14px;background:#f1f5f2}.feedback.good{background:#eaf7ee}.feedback.bad{background:#fff3ed}.score{font-size:2.5rem;font-weight:800;color:var(--green);text-align:center;margin:8px}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:12px}.small{font-size:.82rem}.tag{font-size:.75rem;background:var(--green2);color:var(--green);padding:4px 9px;border-radius:99px;font-weight:700}
+</style></head>
+<body><main class="wrap">
+<header class="hero"><div class="kicker">Japanese study time · 日本語の勉強</div><h1>日本語 Practice<br>cikcik 🌿</h1><p>少しずつ、一緒に頑張ろう！<br><span class="small">Sedikit demi sedikit, semangat belajar!</span></p><span class="pill">JLPT-style practice · N5 / N4 / N3</span></header>
+<section id="setup" class="panel"><h2 class="section-title">今日の練習を選んでください</h2><p class="muted">Pilih latihan yang ingin kamu kerjakan.</p>
+<div class="row"><button class="choice active" data-kind="moji"><strong>文字・語彙</strong><span>Moji Goi · Kanji & kosakata</span></button><button class="choice" data-kind="dokkai"><strong>読解</strong><span>Dokkai · Pemahaman bacaan</span></button></div>
+<label class="field" for="level">レベル · Level</label><select id="level"><option value="N5">JLPT N5 · Pemula</option><option value="N4">JLPT N4 · Dasar menengah</option><option value="N3">JLPT N3 · Menengah</option></select>
+<label class="field" for="count">問題数 · Jumlah soal</label><select id="count"><option value="5">5 soal · Cepat</option><option value="10">10 soal · Latihan</option></select>
+<p class="muted small">Jawaban dan penjelasan memakai bahasa Jepang sederhana. Tekan salah satu jawaban untuk melihat hasilnya.</p><button id="start" class="primary">練習を始める · Mulai latihan</button></section>
+<section id="quiz" class="panel hidden"><div class="topline"><span id="quizLabel">文字・語彙 · N5</span><span id="counter">Soal 1/5</span></div><div class="bar"><div id="progress"></div></div><div id="passage" class="passage hidden"></div><div id="question" class="question"></div><div id="options" class="options"></div><div id="feedback" class="feedback hidden" aria-live="polite"></div><button id="next" class="primary hidden">次の問題 · Soal berikutnya</button><button id="exit" class="secondary" style="width:100%;margin-top:10px">メニューに戻る · Kembali ke menu</button></section>
+<section id="result" class="panel hidden"><div style="text-align:center"><span class="tag">お疲れさまでした！</span><h2 class="section-title" style="margin-top:13px">練習が終わりました</h2><div id="score" class="score">0 / 5</div><p id="resultMessage">よく頑張りました！</p><p id="resultDetail" class="muted"></p></div><button id="retry" class="primary">もう一度 · Coba lagi</button><button id="menu" class="secondary" style="width:100%;margin-top:10px">メニューに戻る</button></section>
+<div class="footer">Nihongo Practice cikcik · 毎日少しずつ 🌱</div>
+</main>
+<script>
+(function(){
+'use strict';
+const BANK={
+N5:{moji:[
+{q:'「毎日」の読み方はどれですか。',o:['まいにち','まいげつ','まいとし','まいあさ'],a:0,e:'毎日（まいにち）は「every day」です。'},
+{q:'「忙しい」の意味は何ですか。',o:['ひま','しずか','忙しい（いそがしい）＝忙しい、することが多い','楽しい'],a:2,e:'忙しい（いそがしい）は、することがたくさんあるという意味です。'},
+{q:'昨日、友達と映画を（　）。',o:['見ました','飲みました','読みました','聞きました'],a:0,e:'映画は「見ます」。昨日のことなので「見ました」です。'},
+{q:'「駅」はどこですか。',o:['学校','病院','電車に乗るところ','図書館'],a:2,e:'駅（えき）は電車に乗ったり、降りたりするところです。'},
+{q:'水を（　）ください。',o:['食べて','飲んで','読んで','書いて'],a:1,e:'水は「飲みます」。「飲んでください」は please drink です。'},
+{q:'「大きい」の反対はどれですか。',o:['高い','小さい','長い','早い'],a:1,e:'大きい（おおきい）の反対は小さい（ちいさい）です。'},
+{q:'「来週」はいつですか。',o:['先週','今週','次の週','毎週'],a:2,e:'来週（らいしゅう）は next week です。'},
+{q:'スーパーで野菜を（　）。',o:['買います','会います','開きます','歩きます'],a:0,e:'スーパーでは野菜を買います（かいます）。'},
+{q:'「午前九時」は何時ですか。',o:['朝9時','夜9時','昼12時','朝7時'],a:0,e:'午前（ごぜん）は午前中、つまり正午より前です。'},
+{q:'この本は（　）です。100円です。',o:['高い','安い','遠い','暑い'],a:1,e:'100円なので「安い（やすい）」が合います。'}],dokkai:[
+{p:'田中さんは毎朝7時に起きます。朝ご飯を食べて、8時に家を出ます。会社まで電車で30分かかります。',q:'田中さんは何時に家を出ますか。',o:['7時','7時半','8時','8時半'],a:2,e:'文に「8時に家を出ます」と書いてあります。'},
+{p:'日曜日、私は友達と買い物に行きました。新しい靴を買って、レストランで昼ご飯を食べました。そのあと、カフェでコーヒーを飲みました。',q:'昼ご飯をどこで食べましたか。',o:['家','レストラン','カフェ','学校'],a:1,e:'「レストランで昼ご飯を食べました」と書いてあります。'},
+{p:'山田さんは日本語を勉強しています。毎晩30分、本を読んで、新しい言葉をノートに書きます。土曜日には日本人の友達と日本語で話します。',q:'山田さんは土曜日に何をしますか。',o:['本を買います','仕事をします','友達と日本語で話します','映画を見ます'],a:2,e:'土曜日には友達と日本語で話します。'},
+{p:'あしたは雨が降るそうです。だから、私は家で本を読みます。買い物は日曜日に行きます。',q:'私はいつ買い物に行きますか。',o:['今日','明日','日曜日','月曜日'],a:2,e:'「買い物は日曜日に行きます」と書いてあります。'},
+{p:'ミラーさんは毎朝パンと卵を食べます。コーヒーは飲みません。朝ご飯のあとで、バスで学校へ行きます。',q:'ミラーさんは朝、何を飲みますか。',o:['コーヒー','水','お茶','何も書いてありません'],a:3,e:'文にはコーヒーを飲まないとあります。他の飲み物については書いてありません。'}]},
+N4:{moji:[
+{q:'「準備」の読み方はどれですか。',o:['じゅんび','じゅんぴ','しゅんび','じょんび'],a:0,e:'準備（じゅんび）は、何かをする前に用意することです。'},
+{q:'雨が降りそうですから、傘を（　）ほうがいいです。',o:['持っていく','持ってきた','持つの','持ち'],a:0,e:'「～たほうがいい」はアドバイスです。傘を持っていくほうがいいです。'},
+{q:'日本に来てから、寿司が好きに（　）。',o:['なりました','しました','ありました','いました'],a:0,e:'「～になる」は状態が変わることです。好きになりました。'},
+{q:'「連絡」の意味に近いものはどれですか。',o:['知らせること','忘れること','休むこと','始めること'],a:0,e:'連絡（れんらく）は、相手に情報を伝えることです。'},
+{q:'電車が遅れたので、会社に（　）。',o:['遅刻しました','約束しました','案内しました','参加しました'],a:0,e:'遅刻（ちこく）するは、時間に遅れることです。'},
+{q:'ここで写真を（　）もいいですか。',o:['撮って','撮る','撮り','撮った'],a:0,e:'許可を聞くときは「～てもいいですか」を使います。'},
+{q:'「必ず」はどんな意味ですか。',o:['たぶん','ぜったいに','ときどき','あまり'],a:1,e:'必ず（かならず）は「きっと、ぜったいに」という意味です。'},
+{q:'薬を飲んだ（　）、少し休みました。',o:['あとで','まえに','まで','ながら'],a:0,e:'「～たあとで」は、あることをした後を表します。'},
+{q:'この問題は私には（　）すぎます。',o:['難しい','難しく','難し','難しくて'],a:0,e:'「い形容詞＋すぎる」：難しすぎます。'},
+{q:'「経験」の読み方はどれですか。',o:['けいけん','けいげん','きょうけん','けんけい'],a:0,e:'経験（けいけん）は、実際にしたこと・体験です。'}],dokkai:[
+{p:'先週、駅の近くに新しい図書館ができました。中には本がたくさんあり、静かに勉強できる部屋もあります。私は毎週土曜日にそこで日本語を勉強するつもりです。',q:'筆者はいつ図書館へ行くつもりですか。',o:['毎日','毎週土曜日','先週だけ','日曜日'],a:1,e:'「毎週土曜日に」と書いてあります。'},
+{p:'佐藤さんは昨日、風邪をひいたので仕事を休みました。病院へ行って薬をもらい、家でゆっくり寝ました。今日は少しよくなりましたが、まだせきが出ます。',q:'佐藤さんは昨日、どうして仕事を休みましたか。',o:['旅行したから','忙しかったから','風邪をひいたから','病院が休みだったから'],a:2,e:'最初に「風邪をひいたので」と理由が書いてあります。'},
+{p:'この店は月曜日から金曜日まで午前10時から午後8時まで開いています。土曜日は午後6時に閉まります。日曜日は休みです。',q:'土曜日は何時に閉まりますか。',o:['午後6時','午後8時','午前10時','休みです'],a:0,e:'土曜日は午後6時に閉まります。'},
+{p:'私は日本語が上手になりたいので、毎日新しい言葉を五つ覚えています。また、通勤中に日本語のポッドキャストを聞いています。',q:'筆者は毎日、新しい言葉をいくつ覚えますか。',o:['三つ','五つ','十個','一つ'],a:1,e:'「毎日…五つ覚えています」と書いてあります。'},
+{p:'明日のピクニックは雨のため中止になりました。参加する予定だった人は、来週の日曜日に集まってください。場所と時間はあとでメールで知らせます。',q:'ピクニックはどうなりましたか。',o:['明日行きます','来週の月曜日です','雨で中止になりました','場所が変わりました'],a:2,e:'「雨のため中止になりました」とあります。'}]},
+N3:{moji:[
+{q:'「影響」の読み方はどれですか。',o:['えいきょう','えんきょう','えいこう','かげきょう'],a:0,e:'影響（えいきょう）は、ほかのものに変化を与えることです。'},
+{q:'電車が止まった（　）、会議に間に合いませんでした。',o:['ため','のに','ほど','しか'],a:0,e:'「～ため」は理由を表します。電車が止まったため、遅れました。'},
+{q:'「適切」の意味に近いものはどれですか。',o:['正しく合っている','とても高い','あまり新しくない','よく知らない'],a:0,e:'適切（てきせつ）は、その場面にちょうど合っていることです。'},
+{q:'健康のために、野菜を食べるように（　）。',o:['しています','なっています','あります','おきます'],a:0,e:'「～ようにしている」は習慣にしていることを表します。'},
+{q:'「解決」の読み方はどれですか。',o:['かいけつ','かいげつ','げけつ','かけつ'],a:0,e:'解決（かいけつ）は、問題を解いて終わらせることです。'},
+{q:'彼は忙しい（　）、毎日日本語を勉強しています。',o:['にもかかわらず','ことから','ばかり','うちに'],a:0,e:'「～にもかかわらず」は「それでも」という逆の内容を表します。'},
+{q:'「維持する」の意味はどれですか。',o:['保つ','壊す','忘れる','比べる'],a:0,e:'維持する（いじする）は、同じ状態を保つことです。'},
+{q:'この説明は少し複雑で、すぐには（　）にくいです。',o:['理解し','理解する','理解して','理解した'],a:0,e:'動詞のます形の語幹＋にくい：理解しにくい。'},
+{q:'「一方で」は何を表しますか。',o:['反対・別の面','時間だけ','原因だけ','命令'],a:0,e:'「一方で」は別の面や対照的な内容を示します。'},
+{q:'会議の内容を忘れない（　）、メモを取りました。',o:['ように','そうに','ためで','みたい'],a:0,e:'「忘れないように」は、忘れないためにする行動です。'}],dokkai:[
+{p:'最近、オンラインで学習する人が増えている。自分の都合に合わせて勉強できることは大きな利点だ。一方で、分からない点をすぐに質問できなかったり、集中力を保つのが難しかったりする場合もある。そのため、自分に合った学習方法を選ぶことが大切だ。',q:'筆者が最も伝えたいことは何ですか。',o:['オンライン学習は必ず失敗する','誰もが同じ方法で学ぶべきだ','自分に合う学習方法を選ぶことが大切だ','質問する必要はない'],a:2,e:'最後に「自分に合った学習方法を選ぶことが大切」とまとめています。'},
+{p:'地域の図書館では、利用者を増やすために、子ども向けの読み聞かせ会や外国語の本を紹介するイベントを始めた。イベントの後、以前より幅広い年齢の人が図書館を訪れるようになったという。',q:'図書館がイベントを始めた目的は何ですか。',o:['本を減らすため','利用者を増やすため','建物を新しくするため','職員を減らすため'],a:1,e:'最初に「利用者を増やすために」と目的が書かれています。'},
+{p:'新しい仕事を始めたばかりのころ、私は失敗を恐れて、分からないことがあっても質問できなかった。しかし、先輩から「早めに確認すれば、大きな問題を防げる」と教えられた。それからは、疑問点をそのままにせず、確認するようにしている。',q:'筆者は先輩から何を学びましたか。',o:['失敗を隠す方法','質問しないほうがよいこと','早く確認することの大切さ','仕事を一人ですること'],a:2,e:'先輩は、早めに確認すると大きな問題を防げると教えました。'},
+{p:'便利なアプリが増え、買い物や手続きが簡単になった。一方、使い方が分からず困る人もいる。新しいサービスを広める際には、便利さだけでなく、誰にとっても使いやすいかどうかを考える必要がある。',q:'筆者の考えに最も近いものはどれですか。',o:['便利なら説明はいらない','サービスは使いやすさも考えるべきだ','アプリを使うべきではない','手続きを難しくするべきだ'],a:1,e:'最後に、便利さだけでなく誰にとっても使いやすいか考える必要があると述べています。'},
+{p:'会社で新しい制度を導入する前に、社員にアンケートを行った。多くの社員が賛成したが、いくつかの心配な点も挙げられた。会社はその意見を参考に制度を修正してから、試験的に導入することにした。',q:'会社はアンケートの結果をどう使いましたか。',o:['意見を無視した','制度をすぐにやめた','意見を参考に制度を修正した','社員にもう一度仕事を教えた'],a:2,e:'社員の意見を参考にして制度を修正し、試験的に導入しました。'}]}
+};
+let kind='moji',level='N5',questions=[],idx=0,score=0,answered=false,wrong=[];
+const $=id=>document.getElementById(id);
+function shuffle(arr){let a=arr.slice();for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+document.querySelectorAll('[data-kind]').forEach(b=>b.addEventListener('click',()=>{kind=b.dataset.kind;document.querySelectorAll('[data-kind]').forEach(x=>x.classList.toggle('active',x===b))}));
+$('start').addEventListener('click',()=>{level=$('level').value;let n=Number($('count').value);questions=shuffle(BANK[level][kind]).slice(0,Math.min(n,BANK[level][kind].length));idx=0;score=0;wrong=[];$('setup').classList.add('hidden');$('result').classList.add('hidden');$('quiz').classList.remove('hidden');render()});
+function render(){answered=false;const q=questions[idx];$('quizLabel').textContent=(kind==='moji'?'文字・語彙':'読解')+' · '+level;$('counter').textContent='問題 '+(idx+1)+' / '+questions.length;$('progress').style.width=((idx+1)/questions.length*100)+'%';$('question').textContent=q.q;$('passage').textContent=q.p||'';$('passage').classList.toggle('hidden',!q.p);$('options').innerHTML='';$('feedback').className='feedback hidden';$('feedback').textContent='';$('next').classList.add('hidden');q.o.forEach((opt,i)=>{const b=document.createElement('button');b.className='option';const letter=document.createElement('span');letter.className='letter';letter.textContent=String.fromCharCode(65+i);const txt=document.createElement('span');txt.textContent=opt;b.append(letter,txt);b.addEventListener('click',()=>answer(i));$('options').appendChild(b)})}
+function answer(i){if(answered)return;answered=true;const q=questions[idx],buttons=[...$('options').children];buttons.forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add('correct');if(j===i&&i!==q.a)b.classList.add('wrong')});if(i===q.a)score++;else wrong.push({q:q.q,chosen:q.o[i],correct:q.o[q.a]});const f=$('feedback');f.className='feedback '+(i===q.a?'good':'bad');const title=document.createElement('strong');title.textContent=i===q.a?'正解！ よくできました！':'残念。でも大丈夫です！';const exp=document.createElement('div');exp.style.marginTop='5px';exp.textContent=q.e;f.append(title,exp);f.classList.remove('hidden');$('next').textContent=idx===questions.length-1?'結果を見る · Hasil':'次の問題 · Soal berikutnya';$('next').classList.remove('hidden')}
+$('next').addEventListener('click',()=>{if(idx<questions.length-1){idx++;render()}else showResult()});function showResult(){$('quiz').classList.add('hidden');$('result').classList.remove('hidden');$('score').textContent=score+' / '+questions.length;$('resultMessage').textContent=score===questions.length?'すばらしい！ 全問正解です！':score>=Math.ceil(questions.length*.6)?'よく頑張りました！ もう少し練習しましょう。':'大丈夫です！ まちがえた問題を復習しましょう。';$('resultDetail').textContent='正解率：'+Math.round(score/questions.length*100)+'% · まちがい：'+wrong.length+'問';}
+function back(){ $('quiz').classList.add('hidden');$('result').classList.add('hidden');$('setup').classList.remove('hidden') }$('exit').addEventListener('click',back);$('menu').addEventListener('click',back);$('retry').addEventListener('click',()=>{$('result').classList.add('hidden');$('quiz').classList.remove('hidden');idx=0;score=0;wrong=[];questions=shuffle(BANK[level][kind]).slice(0,Math.min(Number($('count').value),BANK[level][kind].length));render()});
+})();
+</script></body></html>
